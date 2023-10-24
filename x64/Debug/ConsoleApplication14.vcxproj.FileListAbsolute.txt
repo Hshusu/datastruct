@@ -1,0 +1,2 @@
+C:\Users\lizba.DESKTOP-GJUHATK\source\repos\ConsoleApplication14\x64\Debug\ConsoleApplication14.exe
+C:\Users\lizba.DESKTOP-GJUHATK\source\repos\ConsoleApplication14\datastruct\x64\Debug\ConsoleApplication14.exe
