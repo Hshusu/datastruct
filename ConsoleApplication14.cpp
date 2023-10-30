@@ -22,9 +22,9 @@ int main()
 	list.insertlast(new dynam('L'));
 	list.insertlast(new dynam('L'));
 	list.insertlast(new dynam('L'));
-	list.insertlast(new dynam('D'));
+	list.insertlast(new dynam('U'));
 	list.printlist();
-	/*while (1) {
+	while (1) {
 		
 		while ((GetAsyncKeyState('W')) || GetAsyncKeyState('S') || GetAsyncKeyState('X')) {
 			system("cls");
@@ -37,12 +37,12 @@ int main()
 				list.setselectdown();
 			}
 			if (GetAsyncKeyState('X')) {
-				list.setselect('X');
+				list.setselect();
 			}
 			std::cout << std::endl;
 			Sleep(100);
 		}
-	}*/
+	}
 
 
  

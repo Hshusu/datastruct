@@ -10,19 +10,19 @@ LL::LL()
 
 LL::~LL()
 {
-	if (first == nullptr) {
-		std::cout << "nothing to destroy lol";
-	}
-	else {
+	//if (first == nullptr) {
+	//	std::cout << "nothing to destroy lol";
+	//}
+	//else {
 
-		dynam* current = first;
-		while (current != nullptr) {
-			current = current->findnext();
-			std::cout << first->getdata() << "has been destroyed " << std::endl;
-			delete first;
-			first = current;
-		}
-	}
+	//	dynam* current = first;
+	//	while (current != nullptr) {
+	//		current = current->findnext();
+	//		std::cout << first->getdata() << "has been destroyed " << std::endl;
+	//		delete first;
+	//		first = current;
+	//	}
+	//}
 }
 
 void LL::insertfirst(dynam* input)
@@ -57,7 +57,13 @@ void LL::printlist()
 		COORD input_pos = { x,y };
 		HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleCursorPosition(hConsoleOutput, input_pos);
-		std::cout << 'X';
+		gotoxy(x, y);
+		if (selected == temp) {
+			std::cout << 'O';
+		}
+		else {
+			std::cout << 'X';
+		}
 		switch (temp->getdata())
 		{
 		case 'U':
@@ -65,6 +71,7 @@ void LL::printlist()
 			gotoxy(x, y);
 			std::cout << '|';
 			y --;
+			gotoxy(x, y);
 			break;
 		case 'D':
 			y++;
@@ -93,8 +100,12 @@ void LL::printlist()
 		temp = temp->findnext();
 
 	}
-
-	std::cout << 'X';
+	if (selected == temp) {
+		std::cout << 'O';
+	}
+	else {
+		std::cout << 'X';
+	}
 	/*dynam* temp = first;
 	while (temp != nullptr) {
 
@@ -113,6 +124,7 @@ void LL::printlist()
 		temp = temp->findnext();
 
 	}*/
+	gotoxy(0, y+5);
 }
 
 void LL::deletefirst()
@@ -139,10 +151,11 @@ void LL::printselect()
 	}
 }
 
-void LL::setselect(char x)
+void LL::setselect()
 {
-	dynam* temp = new dynam(x);
+	
 	if (selected->findnext() == nullptr) {
+		dynam* temp = new dynam(selected->findback()->getdata());
 		insertlast(temp);
 	}
 	else {

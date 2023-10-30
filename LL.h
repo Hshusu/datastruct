@@ -14,7 +14,7 @@ public:
     void deletefirst();
     void deletelast();
     void printlist();
-    void setselect(char x);
+    void setselect();
     void setselectup();
     void setselectdown();
     void printselect();
