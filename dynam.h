@@ -3,12 +3,12 @@
 class dynam
 {
 private:
-	int val;
+	char val;
 	dynam* forward = nullptr;
 	dynam* backward  = nullptr;
 public:
-	dynam(int input);
-	int getdata();
+	dynam(char input);
+	char getdata();
 	dynam* findnext();
 	dynam* findback();
 	void assignforward(dynam* forward);

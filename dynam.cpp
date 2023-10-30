@@ -1,12 +1,12 @@
 #include "dynam.h"
 
-dynam::dynam(int input)
+dynam::dynam(char input)
 {
 	val = input;
 
 }
 
-int dynam::getdata()
+char dynam::getdata()
 {
 	return val;
 }

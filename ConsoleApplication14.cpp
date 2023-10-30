@@ -8,13 +8,23 @@
 int main()
 {
 	LL list;
-	list.insertfirst(new dynam(111111));
-	list.insertlast(new dynam(4444444));
-	list.insertlast(new dynam(2222222));
-	list.insertlast(new dynam(55555555));
-	list.insertfirst(new dynam(3333333));
-	
-	while (1) {
+	list.insertfirst(new dynam('D'));
+	list.insertlast(new dynam('D'));
+	list.insertlast(new dynam('R'));
+	list.insertlast(new dynam('D'));
+	list.insertlast(new dynam('R'));
+	list.insertlast(new dynam('R'));
+
+	list.insertlast(new dynam('R'));
+	list.insertlast(new dynam('D'));
+	list.insertlast(new dynam('D'));
+	list.insertlast(new dynam('D'));
+	list.insertlast(new dynam('L'));
+	list.insertlast(new dynam('L'));
+	list.insertlast(new dynam('L'));
+	list.insertlast(new dynam('D'));
+	list.printlist();
+	/*while (1) {
 		
 		while ((GetAsyncKeyState('W')) || GetAsyncKeyState('S') || GetAsyncKeyState('X')) {
 			system("cls");
@@ -27,12 +37,12 @@ int main()
 				list.setselectdown();
 			}
 			if (GetAsyncKeyState('X')) {
-				list.setselect(9999999);
+				list.setselect('X');
 			}
 			std::cout << std::endl;
 			Sleep(100);
 		}
-	}
+	}*/
 
 
  

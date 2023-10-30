@@ -8,14 +8,17 @@ private:
     dynam* selected;
 public:
     LL();
+    ~LL();
     void insertfirst(dynam* input);
     void insertlast(dynam* input);
     void deletefirst();
     void deletelast();
     void printlist();
-    void setselect(int x);
+    void setselect(char x);
     void setselectup();
     void setselectdown();
     void printselect();
+    void gotoxy(int x, int y);
+
 };
 
