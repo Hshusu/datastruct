@@ -2,27 +2,38 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "dynam.h"
 #include"LL.h"
 #include <windows.h>
 int main()
 {
+	char input;
+	std::ifstream pathFile("path.txt");
 	LL list;
-	list.insertfirst(new dynam('D'));
-	list.insertlast(new dynam('D'));
-	list.insertlast(new dynam('R'));
-	list.insertlast(new dynam('D'));
-	list.insertlast(new dynam('R'));
-	list.insertlast(new dynam('R'));
-
-	list.insertlast(new dynam('R'));
-	list.insertlast(new dynam('D'));
-	list.insertlast(new dynam('D'));
-	list.insertlast(new dynam('D'));
-	list.insertlast(new dynam('L'));
-	list.insertlast(new dynam('L'));
-	list.insertlast(new dynam('L'));
-	list.insertlast(new dynam('U'));
+	if (pathFile.is_open()) {
+		while (pathFile >> input) {
+			switch (input) {
+			case 'U':
+				list.insertlast(new dynam('U'));
+				break;
+			case 'D':
+				list.insertlast(new dynam('D'));
+				break;
+			case 'L':
+				list.insertlast(new dynam('L'));
+				break;
+			case 'R':
+				list.insertlast(new dynam('R'));
+				break;
+			default:
+				std::cout << "please only input U,D,L,R";
+				break;
+			}
+		}
+		pathFile.close();
+	}
 	list.printlist();
 	while (1) {
 		

@@ -34,7 +34,8 @@ void LL::insertfirst(dynam* input)
 	else {
 		last = input;
 	}
-	first = input;
+	 first = input;
+	 selected = input;
 	
 }
 void LL::insertlast(dynam* input)
@@ -42,9 +43,11 @@ void LL::insertlast(dynam* input)
 	if (last != nullptr) {
 		last->assignforward(input);
 		input->assignbackward(last);
+	
 	}
 	else {
 		first = input;
+		selected = input;
 	}
 	last = input;
 }
@@ -154,11 +157,18 @@ void LL::printselect()
 void LL::setselect()
 {
 	
-	if (selected->findnext() == nullptr) {
+	
+	if (selected->findback() == nullptr) {
+		dynam* temp = new dynam(selected->findnext()->getdata());
+		insertfirst(temp);
+	}
+	else if (selected->findnext() == nullptr) {
 		dynam* temp = new dynam(selected->findback()->getdata());
 		insertlast(temp);
 	}
 	else {
+			
+		dynam* temp = new dynam(selected->findnext()->getdata());
 		temp->assignbackward(selected);
 		temp->assignforward(selected->findnext());
 		(selected->findnext())->assignbackward(temp);
@@ -172,16 +182,14 @@ void LL::setselect()
 
 void LL::setselectdown()
 {
-	if (selected == nullptr) { selected = first; }
-	else {
+	if (selected->findnext() != nullptr) {
 		selected = selected->findnext();
 	}
 }
 
 void LL::setselectup()
 {
-	if (selected == nullptr) { selected = last; }
-	else {
+	if (selected->findback() != nullptr) {
 		selected = selected->findback();
 	}
 
