@@ -13,6 +13,7 @@ public:
     void insertlast(dynam* input);
     void deletefirst();
     void deletelast();
+    void deleteselected();
     void printlist();
     void setselect();
     void setselectup();

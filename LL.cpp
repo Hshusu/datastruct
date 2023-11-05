@@ -53,27 +53,31 @@ void LL::insertlast(dynam* input)
 }
 void LL::printlist()
 {
-	short x =0, y =0;
+	
+	short x = 0, y = 0;
 
 	dynam* temp = first;
+	COORD input_pos = { x,y };
+	HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleCursorPosition(hConsoleOutput, input_pos);
+	gotoxy(x, y);
+	if (selected == temp) {
+		std::cout << 'O';
+	}
+	else {
+		std::cout << 'X';
+	}
+	if ((first != nullptr) && (last != nullptr)) {
+		temp = temp->findnext();
+	}
 	while (temp != nullptr) {
-		COORD input_pos = { x,y };
-		HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-		SetConsoleCursorPosition(hConsoleOutput, input_pos);
-		gotoxy(x, y);
-		if (selected == temp) {
-			std::cout << 'O';
-		}
-		else {
-			std::cout << 'X';
-		}
 		switch (temp->getdata())
 		{
 		case 'U':
-			y --;
+			y--;
 			gotoxy(x, y);
 			std::cout << '|';
-			y --;
+			y--;
 			gotoxy(x, y);
 			break;
 		case 'D':
@@ -100,35 +104,42 @@ void LL::printlist()
 		default:
 			break;
 		}
-		temp = temp->findnext();
-
-	}
-	if (selected == temp) {
-		std::cout << 'O';
-	}
-	else {
-		std::cout << 'X';
-	}
-	/*dynam* temp = first;
-	while (temp != nullptr) {
-
-
-		if (temp == selected) {
-			std::cout << "\033[1;31m" << temp->getdata() << "  <-----" << "\033[0m";
+		if (selected == temp) {
+			std::cout << 'O';
 		}
 		else {
-
-			std::cout << temp->getdata();
+			std::cout << 'X';
 		}
 
-		if (temp != last) {
-			std::cout << '-';
-		}
 		temp = temp->findnext();
 
-	}*/
-	gotoxy(0, y+5);
-}
+
+
+	} ;
+			
+
+
+		/*dynam* temp = first;
+		while (temp != nullptr) {
+
+
+			if (temp == selected) {
+				std::cout << "\033[1;31m" << temp->getdata() << "  <-----" << "\033[0m";
+			}
+			else {
+
+				std::cout << temp->getdata();
+			}
+
+			if (temp != last) {
+				std::cout << '-';
+			}
+			temp = temp->findnext();
+
+		}*/
+		gotoxy(0, y + 5);
+	}
+
 
 void LL::deletefirst()
 {
@@ -145,6 +156,55 @@ void LL::deletefirst()
 		last = nullptr;
 
 	}
+}
+
+void LL::deletelast()
+{
+}
+
+void LL::deleteselected()
+{
+
+	 if (first == last) {
+
+		delete first;
+		first = nullptr;
+		last = nullptr;
+		std::cout << "cannot delete anything else !";
+		exit(0);
+
+	  }
+	else if (selected->findback() == nullptr) {
+		if (selected->findnext() != nullptr) {
+			dynam* temp = selected->findnext();
+			selected->findnext()->assignbackward(nullptr);
+
+			delete selected;
+			first=selected = temp;
+
+
+			
+		}
+
+	}
+	else if (selected->findnext() == nullptr) { // end of list
+		if (selected->findback() != nullptr) {
+			selected->findback()->assignforward(nullptr);
+			dynam* temp = selected->findback();
+			delete selected;
+			last=selected = temp;
+
+		}
+	}
+	else {
+
+		selected->findback()->assignforward(selected->findnext());
+		selected->findnext()->assignbackward(selected->findback());
+		dynam* temp = selected->findback();
+		delete selected;
+		selected = temp;
+	}
+
 }
 
 void LL::printselect()
@@ -168,7 +228,7 @@ void LL::setselect()
 	}
 	else {
 			
-		dynam* temp = new dynam(selected->findnext()->getdata());
+		dynam* temp = new dynam(selected->getdata());
 		temp->assignbackward(selected);
 		temp->assignforward(selected->findnext());
 		(selected->findnext())->assignbackward(temp);

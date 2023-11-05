@@ -37,7 +37,7 @@ int main()
 	list.printlist();
 	while (1) {
 		
-		while ((GetAsyncKeyState('W')) || GetAsyncKeyState('S') || GetAsyncKeyState('X')) {
+		while ((GetAsyncKeyState('W')) || GetAsyncKeyState('S') || GetAsyncKeyState(0xBD) || GetAsyncKeyState(0xBB)) {
 			system("cls");
 			list.printlist();
 			std::cout << std::endl;
@@ -47,8 +47,11 @@ int main()
 			if (GetAsyncKeyState('S')) {
 				list.setselectdown();
 			}
-			if (GetAsyncKeyState('X')) {
+			if (GetAsyncKeyState(0xBB)) {
 				list.setselect();
+			}
+			if (GetAsyncKeyState(0xBD)) {
+				list.deleteselected();
 			}
 			std::cout << std::endl;
 			Sleep(100);
