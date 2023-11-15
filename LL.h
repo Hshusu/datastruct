@@ -18,6 +18,7 @@ public:
     void setselect();
     void setselectup();
     void setselectdown();
+    void controls(char input);
     void printselect();
     void gotoxy(int x, int y);
 

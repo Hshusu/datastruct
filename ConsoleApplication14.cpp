@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include "dynam.h"
+#include <conio.h>
 #include"LL.h"
 #include <windows.h>
 int main()
@@ -36,25 +37,10 @@ int main()
 	}
 	list.printlist();
 	while (1) {
-		
-		while ((GetAsyncKeyState('W')) || GetAsyncKeyState('S') || GetAsyncKeyState(0xBD) || GetAsyncKeyState(0xBB)) {
-			system("cls");
-			list.printlist();
-			std::cout << std::endl;
-			if (GetAsyncKeyState('W')) {
-				list.setselectup();
-			}
-			if (GetAsyncKeyState('S')) {
-				list.setselectdown();
-			}
-			if (GetAsyncKeyState(0xBB)) {
-				list.setselect();
-			}
-			if (GetAsyncKeyState(0xBD)) {
-				list.deleteselected();
-			}
-			std::cout << std::endl;
-			Sleep(100);
+		input = _getch();
+		while ((GetAsyncKeyState('W')) || GetAsyncKeyState('S') || GetAsyncKeyState('A') || GetAsyncKeyState('D') || GetAsyncKeyState(0xBD) || GetAsyncKeyState(0xBB)) {
+
+			list.controls(input);
 		}
 	}
 

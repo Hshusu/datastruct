@@ -110,7 +110,8 @@ void LL::printlist()
 		else {
 			std::cout << 'X';
 		}
-
+		gotoxy(x+20, y);
+		std::cout << temp->getdata();
 		temp = temp->findnext();
 
 
@@ -245,6 +246,61 @@ void LL::setselectdown()
 	if (selected->findnext() != nullptr) {
 		selected = selected->findnext();
 	}
+}
+
+void LL::controls(char)
+{
+	system("cls");
+	printlist();
+	std::cout << std::endl;
+
+	if (GetAsyncKeyState('W')) {
+		if (selected->getdata() == 'D') {
+			setselectup();
+		}
+
+		if ((selected->findnext() != nullptr) && (selected->findnext()->getdata() == 'U')) {
+			setselectdown();
+		}
+
+	}
+	if (GetAsyncKeyState('S')) {
+		if ((selected->findnext()!=nullptr)&&(selected->findnext()->getdata() == 'D') ){
+			setselectdown();
+		}
+		if (selected->getdata() == 'U') {
+			setselectup();
+		}
+
+	}
+
+	if (GetAsyncKeyState('A')) {
+		if (selected->getdata()=='R') {
+			setselectup();
+		}
+
+		if ((selected->findnext() != nullptr) && (selected->findnext()->getdata() == 'L')) {
+			setselectdown();
+		}
+
+	}
+	if (GetAsyncKeyState('D')) {
+		if ((selected->findnext() != nullptr) && (selected->findnext()->getdata() == 'R')) {
+			setselectdown();
+		}
+		if (selected->getdata() == 'L') {
+			setselectup();
+		}
+	}
+
+	if (GetAsyncKeyState(0xBB)) {
+		setselect();
+	}
+	if (GetAsyncKeyState(0xBD)) {
+		deleteselected();
+	}
+	std::cout << std::endl;
+	Sleep(100);
 }
 
 void LL::setselectup()
