@@ -53,24 +53,23 @@ void LL::insertlast(dynam* input)
 }
 void LL::printlist()
 {
-	
+
+
 	short x = 0, y = 0;
 
 	dynam* temp = first;
 	COORD input_pos = { x,y };
 	HANDLE hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleCursorPosition(hConsoleOutput, input_pos);
-	gotoxy(x, y);
-	if (selected == temp) {
-		std::cout << 'O';
-	}
-	else {
-		std::cout << 'X';
-	}
-	if ((first != nullptr) && (last != nullptr)) {
-		temp = temp->findnext();
-	}
-	while (temp != nullptr) {
+
+	do {
+		gotoxy(x, y);
+		if (selected == temp) {
+			std::cout << 'O';
+		}
+		else {
+			std::cout << 'X';
+		}
 		switch (temp->getdata())
 		{
 		case 'U':
@@ -78,67 +77,51 @@ void LL::printlist()
 			gotoxy(x, y);
 			std::cout << '|';
 			y--;
-			gotoxy(x, y);
+
 			break;
 		case 'D':
 			y++;
 			gotoxy(x, y);
 			std::cout << '|';
 			y++;
-			gotoxy(x, y);
+
 			break;
 		case 'L':
 			x--;
 			gotoxy(x, y);
 			std::cout << '-';
 			x--;
-			gotoxy(x, y);
+
 			break;
 		case 'R':
 			x++;
 			gotoxy(x, y);
 			std::cout << '-';
 			x++;
+
+			break;
+		case 'S':
 			gotoxy(x, y);
 			break;
 		default:
 			break;
 		}
-		if (selected == temp) {
-			std::cout << 'O';
-		}
-		else {
-			std::cout << 'X';
-		}
-		gotoxy(x+20, y);
-		std::cout << temp->getdata();
+
+
 		temp = temp->findnext();
 
 
 
-	} ;
-			
-
-
-		/*dynam* temp = first;
-		while (temp != nullptr) {
-
-
-			if (temp == selected) {
-				std::cout << "\033[1;31m" << temp->getdata() << "  <-----" << "\033[0m";
-			}
-			else {
-
-				std::cout << temp->getdata();
-			}
-
-			if (temp != last) {
-				std::cout << '-';
-			}
-			temp = temp->findnext();
-
-		}*/
-		gotoxy(0, y + 5);
+	} while (temp->findnext() != nullptr);
+	gotoxy(x, y);
+	if (selected == temp) {
+		std::cout << 'O';
+	}
+	else {
+		std::cout << 'X';
+	}
+	gotoxy(0, y + 5);
+	std::cout << "use wasd to move, + and - for insertion and deletion";
 	}
 
 
@@ -166,16 +149,7 @@ void LL::deletelast()
 void LL::deleteselected()
 {
 
-	 if (first == last) {
-
-		delete first;
-		first = nullptr;
-		last = nullptr;
-		std::cout << "cannot delete anything else !";
-		exit(0);
-
-	  }
-	else if (selected->findback() == nullptr) {
+	 if (selected->findback() == nullptr) {
 		if (selected->findnext() != nullptr) {
 			dynam* temp = selected->findnext();
 			selected->findnext()->assignbackward(nullptr);
@@ -206,6 +180,15 @@ void LL::deleteselected()
 		selected = temp;
 	}
 
+	if (first == last) {
+
+		delete first;
+		first = nullptr;
+		last = nullptr;
+		std::cout << "cannot delete anything else !";
+		exit(0);
+
+	}
 }
 
 void LL::printselect()
@@ -250,46 +233,43 @@ void LL::setselectdown()
 
 void LL::controls(char)
 {
-	system("cls");
-	printlist();
-	std::cout << std::endl;
+	
 
 	if (GetAsyncKeyState('W')) {
-		if (selected->getdata() == 'D') {
+		if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'D')) {
 			setselectup();
 		}
 
-		if ((selected->findnext() != nullptr) && (selected->findnext()->getdata() == 'U')) {
+		if (selected->getdata() == 'U') {
 			setselectdown();
 		}
-
 	}
 	if (GetAsyncKeyState('S')) {
-		if ((selected->findnext()!=nullptr)&&(selected->findnext()->getdata() == 'D') ){
-			setselectdown();
-		}
-		if (selected->getdata() == 'U') {
+		if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'U')) {
 			setselectup();
 		}
 
+		if (selected->getdata() == 'D') {
+			setselectdown();
+		}
 	}
 
 	if (GetAsyncKeyState('A')) {
-		if (selected->getdata()=='R') {
+		if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'R')) {
 			setselectup();
 		}
 
-		if ((selected->findnext() != nullptr) && (selected->findnext()->getdata() == 'L')) {
+		if (selected->getdata() == 'L') {
 			setselectdown();
 		}
-
 	}
 	if (GetAsyncKeyState('D')) {
-		if ((selected->findnext() != nullptr) && (selected->findnext()->getdata() == 'R')) {
-			setselectdown();
-		}
-		if (selected->getdata() == 'L') {
+		if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'L')) {
 			setselectup();
+		}
+
+		if (selected->getdata() == 'R'){
+			setselectdown();
 		}
 	}
 
@@ -300,6 +280,9 @@ void LL::controls(char)
 		deleteselected();
 	}
 	std::cout << std::endl;
+
+	system("cls");
+	printlist();
 	Sleep(100);
 }
 

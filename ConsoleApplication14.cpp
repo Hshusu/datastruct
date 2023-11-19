@@ -15,6 +15,7 @@ int main()
 	LL list;
 	if (pathFile.is_open()) {
 		while (pathFile >> input) {
+
 			switch (input) {
 			case 'U':
 				list.insertlast(new dynam('U'));
@@ -33,6 +34,7 @@ int main()
 				break;
 			}
 		}
+		list.insertlast(new dynam('D'));
 		pathFile.close();
 	}
 	list.printlist();
