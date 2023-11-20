@@ -54,8 +54,8 @@ void LL::insertlast(dynam* input)
 void LL::printlist()
 {
 
-
-	short x = 0, y = 0;
+	
+	short x = 0, y = 2;
 
 	dynam* temp = first;
 	COORD input_pos = { x,y };
@@ -121,31 +121,8 @@ void LL::printlist()
 		std::cout << 'X';
 	}
 	gotoxy(0, y + 5);
-	std::cout << "use wasd to move, + and - for insertion and deletion";
-	}
-
-
-void LL::deletefirst()
-{
-	if (first != nullptr) {
-		dynam* temp = first->findnext();
-		delete first;
-		first = temp;
-		first->assignbackward(nullptr);
-	}
-	else if (first == last) {
 	
-		delete first;
-		first = nullptr;
-		last = nullptr;
-
 	}
-}
-
-void LL::deletelast()
-{
-}
-
 void LL::deleteselected()
 {
 
@@ -175,7 +152,7 @@ void LL::deleteselected()
 
 		selected->findback()->assignforward(selected->findnext());
 		selected->findnext()->assignbackward(selected->findback());
-		dynam* temp = selected->findback();
+		dynam* temp = selected->findnext();
 		delete selected;
 		selected = temp;
 	}
@@ -190,18 +167,8 @@ void LL::deleteselected()
 
 	}
 }
-
-void LL::printselect()
-{
-	if (selected != nullptr) {
-		std::cout << selected->getdata();
-	}
-}
-
 void LL::setselect()
 {
-	
-	
 	if (selected->findback() == nullptr) {
 		dynam* temp = new dynam(selected->findnext()->getdata());
 		insertfirst(temp);
@@ -218,10 +185,6 @@ void LL::setselect()
 		(selected->findnext())->assignbackward(temp);
 		selected->assignforward(temp);
 	}
-
-
-
-	
 }
 
 void LL::setselectdown()
@@ -231,61 +194,84 @@ void LL::setselectdown()
 	}
 }
 
-void LL::controls(char)
+void LL::controls()
 {
-	
-
-	if (GetAsyncKeyState('W')) {
-		if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'D')) {
-			setselectup();
-		}
-
-		if (selected->getdata() == 'U') {
-			setselectdown();
-		}
-	}
-	if (GetAsyncKeyState('S')) {
-		if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'U')) {
-			setselectup();
-		}
-
-		if (selected->getdata() == 'D') {
-			setselectdown();
-		}
-	}
-
-	if (GetAsyncKeyState('A')) {
-		if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'R')) {
-			setselectup();
-		}
-
-		if (selected->getdata() == 'L') {
-			setselectdown();
-		}
-	}
-	if (GetAsyncKeyState('D')) {
-		if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'L')) {
-			setselectup();
-		}
-
-		if (selected->getdata() == 'R'){
-			setselectdown();
-		}
-	}
-
-	if (GetAsyncKeyState(0xBB)) {
-		setselect();
-	}
-	if (GetAsyncKeyState(0xBD)) {
-		deleteselected();
-	}
-	std::cout << std::endl;
-
-	system("cls");
+	char input;
+	bool running = true;
 	printlist();
-	Sleep(100);
-}
+	while (running == true) {
+		gotoxy(0, 0);
+		std::cout << "use wasd to move, + and - for insertion and deletion , use q quit";
 
+		std::cin >> input;
+		system("cls");
+
+		if (input == 'w') {
+			if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'D')) {
+				setselectup();
+			}
+			else if (selected->getdata() == 'U') {
+				setselectdown();
+			}
+			else {
+				std::cout << std::endl;
+				std::cout << "invalid direction";
+			}
+		}
+		else if (input == 's') {
+			if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'U')) {
+				setselectup();
+			}
+			else if (selected->getdata() == 'D') {
+				setselectdown();
+			}
+			else {
+				std::cout << std::endl;
+				std::cout << "invalid direction";
+			}
+		}
+		else if (input == 'a') {
+			if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'R')) {
+				setselectup();
+			}
+			else if (selected->getdata() == 'L') {
+				setselectdown();
+			}
+			else {
+				std::cout << std::endl;
+				std::cout << "invalid direction";
+			}
+		}
+		else if (input == 'd') {
+			if ((selected->findback() != nullptr) && (selected->findback()->getdata() == 'L')) {
+				setselectup();
+			}
+			else if (selected->getdata() == 'R') {
+				setselectdown();
+			}
+			else {
+				std::cout << std::endl;
+				std::cout << "invalid direction";
+			}
+		}
+		else if (input == 'q') {
+			running = false;
+		}
+		else if (input == '+') {
+			setselect();
+		}
+		else if (input == '-') {
+			deleteselected();
+		}
+		else {
+			std::cout << std::endl;
+			std::cout << "invalid input";
+		}
+		printlist();
+
+
+	}
+}
 void LL::setselectup()
 {
 	if (selected->findback() != nullptr) {

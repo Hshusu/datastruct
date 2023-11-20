@@ -11,15 +11,12 @@ public:
     ~LL();
     void insertfirst(dynam* input);
     void insertlast(dynam* input);
-    void deletefirst();
-    void deletelast();
     void deleteselected();
     void printlist();
     void setselect();
     void setselectup();
     void setselectdown();
-    void controls(char input);
-    void printselect();
+    void controls();
     void gotoxy(int x, int y);
 
 };

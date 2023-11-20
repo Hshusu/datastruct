@@ -37,14 +37,9 @@ int main()
 		list.insertlast(new dynam('D'));
 		pathFile.close();
 	}
-	list.printlist();
-	while (1) {
-		input = _getch();
-		while ((GetAsyncKeyState('W')) || GetAsyncKeyState('S') || GetAsyncKeyState('A') || GetAsyncKeyState('D') || GetAsyncKeyState(0xBD) || GetAsyncKeyState(0xBB)) {
 
-			list.controls(input);
-		}
-	}
+	list.controls();
+
 
 
  

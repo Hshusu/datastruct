@@ -2,6 +2,8 @@
 
 dynam::dynam(char input)
 {
+	forward = nullptr;
+	backward = nullptr;
 	val = input;
 
 }

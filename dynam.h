@@ -4,8 +4,8 @@ class dynam
 {
 private:
 	char val;
-	dynam* forward = nullptr;
-	dynam* backward  = nullptr;
+	dynam* forward;
+	dynam* backward;
 public:
 	dynam(char input);
 	char getdata();
