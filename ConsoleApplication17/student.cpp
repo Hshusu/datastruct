@@ -6,6 +6,8 @@ student::student(int GPA, std::string Name)
 	this->Name = Name;
 }
 
+
+
 int student::getgpa()
 {
 	return GPA;

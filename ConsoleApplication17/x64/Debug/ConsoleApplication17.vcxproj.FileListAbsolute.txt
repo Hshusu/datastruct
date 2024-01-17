@@ -1,1 +1,2 @@
 C:\Users\lizba.DESKTOP-GJUHATK\source\repos\ConsoleApplication17\x64\Debug\ConsoleApplication17.exe
+D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\x64\Debug\ConsoleApplication17.exe
