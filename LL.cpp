@@ -6,6 +6,7 @@ LL::LL()
 	first = nullptr;
 	last = nullptr;
 	selected = nullptr;
+	size = 0;
 }
 
 LL::~LL()
@@ -109,7 +110,7 @@ void LL::printlist()
 
 
 		temp = temp->findnext();
-
+		size++;
 
 
 	} while (temp->findnext() != nullptr);
@@ -166,6 +167,7 @@ void LL::deleteselected()
 		exit(0);
 
 	}
+
 }
 void LL::setselect()
 {
@@ -270,6 +272,9 @@ void LL::controls()
 		printlist();
 
 
+	}
+	for (int i = 0; i < size; i++) {
+		deleteselected();
 	}
 }
 void LL::setselectup()

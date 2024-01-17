@@ -6,6 +6,7 @@ private:
     dynam* first;// remembers the first ptr
     dynam* last;// remembers the last ptr
     dynam* selected;
+    int size;
 public:
     LL();
     ~LL();
