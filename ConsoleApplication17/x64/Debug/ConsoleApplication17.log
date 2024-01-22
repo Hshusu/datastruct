@@ -1,4 +1,1 @@
-﻿  ConsoleApplication17.cpp
-D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\ConsoleApplication17.cpp(27,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\ConsoleApplication17.cpp(39,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  ConsoleApplication17.vcxproj -> D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\x64\Debug\ConsoleApplication17.exe
+﻿  ConsoleApplication17.vcxproj -> C:\Users\lizba.DESKTOP-GJUHATK\source\repos\ConsoleApplication14\datastruct\ConsoleApplication17\x64\Debug\ConsoleApplication17.exe
