@@ -1,11 +1,5 @@
 #include "MaxHeap.h"
-#ifdef _DEBUG
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
-// allocations to be of _CLIENT_BLOCK type
-#else
-#define DBG_NEW new
-#endif
+#include <iomanip>
 int MaxHeap::findParent(int x)
 {
 	if (x > 0) {
@@ -18,7 +12,6 @@ MaxHeap::MaxHeap()
 {
 	for (int i = 0; i < sizeofarray; i++) {
 		heap[i] = nullptr;
-		list[i] = nullptr;
 	}
 	size = 0;
 }
@@ -30,9 +23,7 @@ MaxHeap::~MaxHeap()
 			delete heap[i];
 
 		}
-		if (list[i] != nullptr) {
-			delete list[i];
-		}
+
 	}
 
 }
@@ -52,30 +43,16 @@ void MaxHeap::addStudent(std::string Name, float GPA)
 				}
 			}
 		}
-		int x;
-		bool heap_done = false;
-		bool list_done = false;
+
 		for (int i = 0; i < sizeofarray; i++) {
 
-			if ((heap[i] == nullptr)&&heap_done==false) {
-				 heap[i] = DBG_NEW student(GPA, Name);
-				reaheap();
-				heap_done = true;
-			}
-			if (list[i] == nullptr && list_done == false) {
-				x = i;
-			
-				list[i] = DBG_NEW student(GPA, Name);
-				while ((x > 0) && (list[x - 1]->getgpa() < list[x]->getgpa())) {
-					std::swap(list[x], list[x - 1]);
-					x--;
-				}
-				list_done = true;
-			}
-			if (heap_done==true && list_done == true) {
+			if (heap[i] == nullptr) {
+			 heap[i] = new student(GPA, Name);
 				size++;
-				break;
+				reaheap();
+				return;
 			}
+	
 		}
 
 		
@@ -84,65 +61,39 @@ void MaxHeap::addStudent(std::string Name, float GPA)
 
 void MaxHeap::removeStudent(std::string Name)
 {
-	int x;
-	bool heap_done = false;
-	bool list_done = false;
 	for (int i = 0; i < size; i++) {
-		if ((heap[i] != nullptr) && heap_done == false) {
+		if ((heap[i] != nullptr)) {
 			if (heap[i]->getname() == Name) {
-				std::swap(heap[i], heap[size-1]);
+				swap(heap[i], heap[size-1]);
 				delete heap[size - 1];
 				heap[size - 1]= nullptr;
 
-				heap_done = true;
+				size--;
 				heapify(i);
+				return;
 			}
-		}
-		if (list[i] != nullptr && list_done == false) {
-			if (list[i]->getname() == Name) {
-				x = i;
-				std::swap(list[i], list[size - 1]);
-				delete list[size - 1];
-				list[size - 1] = nullptr;
-				qsort(0, size - 2);
-				list_done = true;
-			}
-		}
-		if (heap_done == true && list_done == true) {
-			size--;
-			
-			return;
 		}
 
 	}
 	std::cout << "could not find target";
 }
-
+void MaxHeap::swap(student*& one, student*& two)
+{
+	student* temp = one;
+	one = two;
+	two = temp;
+}
 void MaxHeap::updateStudent(std::string Name, float GPA)
 {
-	int x;
-	bool heap_done = false;
-	bool list_done = false;
+	
 	for (int i = 0; i < sizeofarray; i++) {
-		if ((heap[i] != nullptr) && heap_done == false) {
+		if (heap[i] != nullptr) {
 			if (heap[i]->getname() == Name) {
 				heap[i]->setgpa(GPA);
 				heapify(i);
-
+				return;
 			}
 
-		}
-		if (list[i] != nullptr && list_done == false) {
-			if (list[i]->getname() == Name) {
-				x = i;
-				list[i]->setgpa(GPA);
-				qsort(0, size - 1);
-				list_done = true;
-			}
-		}
-		if (heap_done == true && list_done == true) {
-
-			return;
 		}
 	}
 	std::cout << "Nothing to update!";
@@ -152,26 +103,56 @@ void MaxHeap::printheap()
 {
 
 	int index = 1;
+	student* list[sizeofarray];
+
+	for (int i = 0; i < sizeofarray; i++) {
+		list[i] = heap[i];
+
+	}
+	qsort(list, 0, size - 1);
+	std::cout << "Top list:" << std::endl;
+	float top = list[0]->getgpa();
+	for (int i = 0; i < sizeofarray; i++) {
+		if (list[i] != nullptr) {
+			if (top > list[i]->getgpa()) {
+				break;
+			}
+			std::cout << "Name: " << list[i]->getname() << " Gpa: " << std::setprecision(2) << std::fixed << list[i]->getgpa() << std::endl;
+		}
+	}
+	std::cout << "Heap :"<<std::endl;
 	for (int i = 0; i < sizeofarray; i++) {
 		if (heap[i] != nullptr) {
-			if ((i+1 == index)) {
-				std::cout << std::endl;
-				for (int x = 0;x <abs(15-index);x++) {
-					std::cout << ' ';
-				}
+
+			std::cout<< "Name: "<<heap[i]->getname() << " Gpa: " << std::setprecision(2) << std::fixed<< heap[i]->getgpa();
+			std::cout << " left child: ";
+			if (heap[2 * i + 1] != nullptr) {
+				std::cout << heap[2 * i + 1]->getname();
+			}
+			else {
+				std::cout << "NULL";
+			}
+			std::cout << " right child: ";
+			if (heap[2 * i + 2] != nullptr) {
+				std::cout << heap[2 * i + 2]->getname();
+			}
+			else {
+				std::cout << "NULL";
+			}
+			std::cout<<std::endl;
+			if ((i + 1 == index)) {
+
+				std::cout << std::endl << "-------------------------------------------" << std::endl;
+
 				index *= 2;
 
 			}
-			std::cout << ' ' << heap[i]->getname() <<' '<< heap[i]->getgpa();
-
-			
 		}
 	}
-	std::cout << std::endl << std::endl;
-
-	for (int i = 0; i < sizeofarray-1; i++) {
+	std::cout << std::endl << std::endl << "list :" << std::endl;
+	for (int i = 0; i < sizeofarray; i++) {
 		if (list[i] != nullptr) {
-			std::cout << i+1 << ' ' << list[i]->getname() << ' ' << list[i]->getgpa()<<std::endl;
+			std::cout<<'#' << i+1 << ' ' << list[i]->getname() << ' ' << std::setprecision(2) << std::fixed << list[i]->getgpa()<<std::endl;
 		}
 	}
 }
@@ -186,7 +167,7 @@ void MaxHeap::heapify(int index) {
 		largest = right_child;
 	}
 	if (largest != index) {
-		std::swap(heap[index], heap[largest]);
+		swap(heap[index], heap[largest]);
 		heapify(largest);
 	}
 }
@@ -195,10 +176,10 @@ void MaxHeap::reaheap() {
 		heapify(i);
 	}
 }
-int MaxHeap::partition(int first, int last)
+int MaxHeap::partition(student* list[],int first, int last)
 {
 	int middle = (first + last) / 2;
-	std::swap(list[first], list[middle]); // swap the pivot element with first
+	swap(list[first], list[middle]); // swap the pivot element with first
 	// element in the array
 	int pivot = list[first]->getgpa();
 	int smallIndex = first;
@@ -207,20 +188,20 @@ int MaxHeap::partition(int first, int last)
 		if (list[i]->getgpa() > pivot)
 		{
 			smallIndex++;
-			std::swap(list[smallIndex], list[i]);
+			swap(list[smallIndex], list[i]);
 		}
 	}
-	std::swap(list[first], list[smallIndex]);
+	swap(list[first], list[smallIndex]);
 	return smallIndex;
 }
-void MaxHeap::qsort(int first, int last)
+void MaxHeap::qsort(student* list[],int first, int last)
 {
 
 		if (first < last)
 		{
-			int pivotLocation = partition(first,last);
-			qsort(first, pivotLocation - 1);
-			qsort(pivotLocation + 1, last);
+			int pivotLocation = partition(list,first,last);
+			qsort(list, first, pivotLocation - 1);
+			qsort(list, pivotLocation + 1, last);
 		}
 
 }

@@ -1,1 +1,11 @@
-﻿  ConsoleApplication17.vcxproj -> C:\Users\lizba.DESKTOP-GJUHATK\source\repos\ConsoleApplication14\datastruct\ConsoleApplication17\x64\Debug\ConsoleApplication17.exe
+﻿  ConsoleApplication17.cpp
+D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\ConsoleApplication17.cpp(13,32): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\ConsoleApplication17.cpp(16,31): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\ConsoleApplication17.cpp(17,31): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\ConsoleApplication17.cpp(18,30): warning C4305: 'argument': truncation from 'double' to 'float'
+D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\ConsoleApplication17.cpp(30,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\ConsoleApplication17.cpp(42,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  MaxHeap.cpp
+D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\MaxHeap.cpp(184,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+  ConsoleApplication17.vcxproj -> D:\game dev projects\pgrm assignment\datastruct\ConsoleApplication17\x64\Debug\ConsoleApplication17.exe

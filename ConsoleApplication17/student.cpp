@@ -2,13 +2,23 @@
 
 student::student(float GPA, std::string Name)
 {
-	this->GPA = GPA;
+	if (GPA > 4.0) {
+		this->GPA = 4.0;
+	}
+	else {
+		this->GPA = GPA;
+	}
 	this->Name = Name;
 }
 
 void student::setgpa(float GPA)
 {
-	this->GPA = GPA;
+	if (GPA > 4.0) {
+		this->GPA = 4.0;
+	}
+	else {
+		this->GPA = GPA;
+	}
 }
 
 

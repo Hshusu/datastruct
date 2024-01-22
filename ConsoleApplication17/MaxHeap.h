@@ -10,14 +10,14 @@ class MaxHeap
 private:
 
 	student *heap[sizeofarray];
-	student* list[sizeofarray];
 	int size;
 	//student* findLchild(int x);
 	int findParent(int x);
 	void heapify(int index);
 	void reaheap();
-	void qsort(int first, int last);
-	int partition(int first, int last);
+	void qsort(student* list[],int first, int last);
+	int partition(student* list[], int first, int last);
+	void swap(student*& one, student*& two);
 public:
 	MaxHeap();
 	~MaxHeap();

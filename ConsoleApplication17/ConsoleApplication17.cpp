@@ -1,8 +1,4 @@
 
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-
 #include <iostream>
 #include"MaxHeap.h"
 
@@ -14,31 +10,31 @@ int main()
     int number;
     MaxHeap *heap = new MaxHeap();
     while (running == true) {
-        std::cout << "Input Print , Add , Remove , Update or Quit"<<std::endl;
+        std::cout << "Input print , add , remove , update or quit"<<std::endl;
         std::cin >> options;
-        if (options == "Print") {
+        if (options == "print") {
             heap->printheap();
         }
-        else if (options == "Add") {
+        else if (options == "add") {
             std::cout << "Input Name"<<std::endl;
             std::cin >> name;
             std::cout << "Input GPA " << std::endl;
             std::cin >> number;
             heap->addStudent(name, number);
         }
-        else if (options == "Remove") {
+        else if (options == "remove") {
             std::cout << "Input Name " << std::endl;
             std::cin >> name;
             heap->removeStudent(name);
         }
-        else if (options == "Update") {
+        else if (options == "update") {
             std::cout << "Input Name " << std::endl;
             std::cin >> name;
             std::cout << "Input GPA " << std::endl;
             std::cin >> number;
-            heap->addStudent(name, number);
+            heap->updateStudent(name, number);
         }
-        else if (options == "Quit") {
+        else if (options == "quit") {
             running = false;
         }
         std::cin.clear();
@@ -47,5 +43,4 @@ int main()
 
     heap->printheap();
     delete heap;
-    _CrtDumpMemoryLeaks();
 }
