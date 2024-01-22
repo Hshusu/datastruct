@@ -3,12 +3,12 @@
 class student
 {
 private :
-	int GPA;
+	float GPA;
 	std::string Name;
 public :
-	student(int GPA , std::string Name);
-
-	int getgpa();
+	student(float GPA , std::string Name);
+	void setgpa(float GPA);
+	float getgpa();
 	std::string getname();
 };
 

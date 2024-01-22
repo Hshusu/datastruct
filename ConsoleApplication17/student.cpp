@@ -1,14 +1,19 @@
 #include "student.h"
 
-student::student(int GPA, std::string Name)
+student::student(float GPA, std::string Name)
 {
 	this->GPA = GPA;
 	this->Name = Name;
 }
 
+void student::setgpa(float GPA)
+{
+	this->GPA = GPA;
+}
 
 
-int student::getgpa()
+
+float student::getgpa()
 {
 	return GPA;
 }
